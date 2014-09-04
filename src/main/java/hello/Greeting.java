@@ -4,15 +4,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Greeting {
 
-    private long id;
+    private String id;
     private String content;
-    private MultipartFile file;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -24,12 +23,4 @@ public class Greeting {
         this.content = content;
     }
     
-    public MultipartFile getFile() {
-    	return file;
-    }
-    
-    public void setFile(MultipartFile file) {
-    	this.file = file;
-    }
-
 }
