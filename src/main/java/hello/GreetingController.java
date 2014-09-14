@@ -1,6 +1,9 @@
 package hello;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,21 +42,26 @@ public class GreetingController {
                 
                 List<String> fileText = new ArrayList<String>();
                 String fileName = file.getOriginalFilename();
-                InputStream inputStream = file.getInputStream(); 
+                BufferedInputStream inputStream = new BufferedInputStream(file.getInputStream()); 
+                //BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(new File(fileName)));
  
             	Metadata metadata = new Metadata();
-                BodyContentHandler ch = new BodyContentHandler();
+                BodyContentHandler ch = new BodyContentHandler(10*1024*1024);
+                ch.startDocument();
             	AutoDetectParser parser = new AutoDetectParser();
             	
             	String mimeType = new Tika().detect(fileName);
                 metadata.set(Metadata.CONTENT_TYPE, mimeType);
                 
                 parser.parse(inputStream, ch, metadata, new ParseContext());
+                inputStream.close();
                 
                 for (int i = 0; i < metadata.names().length; i++) {
                     String item = metadata.names()[i];
                     fileText.add(item + " -- " + metadata.get(item));
                 }
+                
+                VerbFinder verbs = new VerbFinder();
     
                 /*BufferedOutputStream stream = 
                 		new BufferedOutputStream(new FileOutputStream(new File("uploadedfiles/" + fileName)));
@@ -70,18 +78,28 @@ public class GreetingController {
                 br.close();
                 return "You successfully uploaded " + name + " into " + name + "-uploaded !" + fileName +
                 		fileText + "\n" + ch.toString();*/
-                submission.setContent(ch.toString());
+                submission.setContent(ch.toString() + verbs.findVerbs(ch.toString()).toString());
                 
                 greeting.setContent(ch.toString());
+                //greeting.setCreating(verbs.findVerbs(ch.toString()).getJSONArray("creating").getJSONObject(0).getString("verb"));
+                greeting.setCreating(verbs.findVerbs(ch.toString()).getJSONArray("creating").toString());
+                greeting.setEvaluating(verbs.findVerbs(ch.toString()).getJSONArray("evaluating").toString());
+                greeting.setAnalysing(verbs.findVerbs(ch.toString()).getJSONArray("analysing").toString());
+                greeting.setApplying(verbs.findVerbs(ch.toString()).getJSONArray("applying").toString());
+                greeting.setUnderstanding(verbs.findVerbs(ch.toString()).getJSONArray("understanding").toString());
+                greeting.setRemembering(verbs.findVerbs(ch.toString()).getJSONArray("remembering").toString());
                 
+                ch.endDocument();
                 
                 return "greeting";
             } catch (Exception e) {
                 //return "You failed to upload => " + e.getMessage();
+            	greeting.setContent(e.getMessage());
             	return "greeting";
             }
         }
 		//return "You failed to upload";
+        greeting.setContent("empty");
         return "greeting";
         
     }
