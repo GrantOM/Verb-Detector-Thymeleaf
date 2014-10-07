@@ -2,7 +2,11 @@ package hello;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,13 +16,17 @@ import org.json.*;
 // how to use h2 for an embedded database
 public class VerbFinder {
 	
-	BufferedReader buf;
-    ArrayList<String[]> taxonomy;
-    String lineJustFetched;
-    String[] verbArray;
-    JSONObject results;
+	private ResultModel rM;
 	
+	private BufferedReader buf;
+	private ArrayList<String[]> taxonomy;
+	private String lineJustFetched;
+	private String[] verbArray;
+	
+    //Constructor
 	public VerbFinder() throws FileNotFoundException{
+		
+		rM = new ResultModel();
 		
 		buf = new BufferedReader(new FileReader("Verbs.txt"));
         taxonomy = new ArrayList<>();
@@ -41,30 +49,23 @@ public class VerbFinder {
             }
 
             buf.close();
-        }catch(Exception e){
-            //Pretend it didn't happen
+            
+        }catch(IOException e) {
+    		e.printStackTrace();
         }
         
 	}
 	
-	//Old method for testing
-	public void spitOut(){
-		
-		for (int i = 0; i < taxonomy.size(); i++){
-			
-				System.out.print(taxonomy.get(i).length);
-			
-			System.out.print("\n");
-		}	
-	}
 	
 	//Takes the text file string as a parameter
-    public JSONObject findVerbs(String fileText ) throws JSONException {
+    public void findVerbs(String fileText ) throws JSONException, IOException {
     	
     	JSONObject results = new JSONObject();
     	JSONArray resultY = new JSONArray();
     	JSONObject resultX = new JSONObject();
     	int count = 0;
+    	
+    	File file = new File("Results.txt");
 
     	fileText = fileText.toLowerCase();
     	
@@ -78,8 +79,8 @@ public class VerbFinder {
     				
     				if (count > 0){	
     					
-    					resultX.put("Occurences", count);
-    					resultX.put("Verb", taxonomy.get(j)[i]);
+    					resultX.put("result", count);
+    					resultX.put("verb", taxonomy.get(j)[i]);
     				}
     			}	
     			
@@ -94,13 +95,21 @@ public class VerbFinder {
     		resultY = new JSONArray();
     	}
     	
-        return results;
+    	if (!file.exists()) {
+			file.createNewFile();
+		}
+    		
+    	FileWriter fw = new FileWriter(file.getAbsoluteFile());
+    	BufferedWriter bw = new BufferedWriter(fw);
+    	bw.write(results.toString() + "\t");
+    	bw.close();
+    		
+    	rM.Refresh();
+    
     } 
     
-    /*@Override
-    public String toString() {
-		return results.getJSONArray(key);
+    public JSONObject[] GetResults() throws JSONException{
     	
-    }*/
-    
+    	return rM.GetResults();
+    }
 }   

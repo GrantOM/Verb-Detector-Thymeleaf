@@ -78,6 +78,10 @@ public class GreetingController {
                 br.close();
                 return "You successfully uploaded " + name + " into " + name + "-uploaded !" + fileName +
                 		fileText + "\n" + ch.toString();*/
+                
+                
+                //This will not work any more
+                /*
                 submission.setContent(ch.toString() + verbs.findVerbs(ch.toString()).toString());
                 
                 greeting.setContent(ch.toString());
@@ -88,6 +92,8 @@ public class GreetingController {
                 greeting.setApplying(verbs.findVerbs(ch.toString()).getJSONArray("applying").toString());
                 greeting.setUnderstanding(verbs.findVerbs(ch.toString()).getJSONArray("understanding").toString());
                 greeting.setRemembering(verbs.findVerbs(ch.toString()).getJSONArray("remembering").toString());
+                
+                */ 
                 
                 ch.endDocument();
                 
