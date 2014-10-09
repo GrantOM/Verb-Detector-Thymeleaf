@@ -9,7 +9,12 @@
 	<script type="text/javascript" src="scripts/jquery-1.4.1.min.js"></script>
 	<script type="text/javascript" src="scripts/jquery-ui-1.7.2.custom.min.js"></script>
 	<script type="text/javascript" src="scripts/list-control.js"></script>
-	<!-- End Homepage Specific Elements -->
+    <!-- <script type="application/javascript" src="scripts/pie_chart.js"></script>  -->
+    <!--<script type="text/javascript" src="scripts/d3.min.js"></script>      -->
+    <!--<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>   -->
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.4.6"></script>
+    <script src='http://mbostock.github.com/d3/d3.layout.js?2.4.6' type='text/javascript'></script>
+    <!-- End Homepage Specific Elements -->
 </head>
 <body>
 	<div id="header">
@@ -19,20 +24,89 @@
 		<div class="colmid">
 			<div class="colleft">
 				<div class="col1">
-					<!-- Column 1 start -->
-					<p th:text="'Document name: ' + ${greeting.id}" />
-					<p th:text="${greeting.content}" />
+                    <!-- Column 1 start -->
+                    <script>
+                        function content_view_click(content, graph) {
+                            document.getElementById(content).style.display = 'block';
+                            document.getElementById(graph).style.display = 'none';
+                        }
+
+                        function graph_view_click(content, graph) {
+                            document.getElementById(content).style.display = 'none';
+                            document.getElementById(graph).style.display = 'block';
+                        }
+
+                    </script>
+                    <button id="content-view" onclick="content_view_click('content', 'graphs')">Content</button>
+                    <button id="graph-view" onclick="graph_view_click('content', 'graphs')">Graphs</button>
+                    <div id = "content">
+                        <p th:text="'Document name: ' + ${greeting.id}" />
+                        <p th:text="${greeting.content}" />
+                    </div>
+                    <div id = "graphs">
+                        <div id="chart"></div>
+                        <script>
+                            var data = [
+                                {name: "A", val: 11975},
+                                {name: "B", val: 5871},
+                                {name: "C", val: 8916}
+                            ];
+
+                            var w = 400,
+                                    h = 400,
+                                    r = Math.min(w, h) / 2,
+                                    labelr = r + 30, // radius for label anchor
+                                    color = d3.scale.category20(),
+                                    donut = d3.layout.pie(),
+                                    arc = d3.svg.arc().innerRadius(r * .6).outerRadius(r);
+
+                            var vis = d3.select("#chart")
+                                    .append("svg:svg")
+                                    .data([data])
+                                    .attr("width", w + 150)
+                                    .attr("height", h);
+
+                            var arcs = vis.selectAll("g.arc")
+                                    .data(donut.value(function(d) { return d.val }))
+                                    .enter().append("svg:g")
+                                    .attr("class", "arc")
+                                    .attr("transform", "translate(" + (r + 30) + "," + r + ")");
+
+                            arcs.append("svg:path")
+                                    .attr("fill", function(d, i) { return color(i); })
+                                    .attr("d", arc);
+
+                            arcs.append("svg:text")
+                                    .attr("transform", function(d) {
+                                        var c = arc.centroid(d),
+                                                x = c[0],
+                                                y = c[1],
+                                        // pythagorean theorem for hypotenuse
+                                                h = Math.sqrt(x*x + y*y);
+                                        return "translate(" + (x/h * labelr) +  ',' +
+                                                (y/h * labelr) +  ")";
+                                    })
+                                    .attr("dy", ".35em")
+                                    .attr("text-anchor", function(d) {
+                                        // are we past the center?
+                                        return (d.endAngle + d.startAngle)/2 > Math.PI ?
+                                                "end" : "start";
+                                    })
+                                    .text(function(d, i) { return d.value.toFixed(2); });
+                        </script>
+
+                    </div>
 					<!-- Column 1 end -->
 				</div>
 				<div class="col2">
 					<!-- Column 2 start -->
-					<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post" enctype="multipart/form-data">
-						<p>Name: <input type="text" th:field="*{id}" /></p>
-						File to upload: <input type="file" name="file"/><br />
-						<!--<p>Message: <input type="text" th:field="*{content}" /></p>-->
-						<p><input type="submit" value="Submit" /></p>
-						<a href="/greeting">Upload another file</a>
-					</form>
+                    <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post" enctype="multipart/form-data">
+                        <p>Name: <input type="text" th:field="*{id}" /></p>
+                        File to upload: <input type="file" name="file"/><br />
+                        <!--<p>Message: <input type="text" th:field="*{content}" /></p>-->
+                        <p><input type="submit" value="Submit" /></p>
+                        <a href="/greeting">Upload another file</a>
+                    </form>
 					<!-- Column 2 end -->
 				</div>
 				<div class="col3">
