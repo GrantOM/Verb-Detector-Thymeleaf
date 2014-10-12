@@ -1,7 +1,7 @@
 var data = [
-    {name: "A", val: 11975},
-    {name: "B", val: 5871},
-    {name: "C", val: 8916}
+    {name: "A", val: 11},
+    {name: "B", val: 58},
+    {name: "C", val: 89}
 ];
 
 var w = 400,

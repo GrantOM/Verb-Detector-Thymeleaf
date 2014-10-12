@@ -108,8 +108,8 @@ public class VerbFinder {
     
     } 
     
-    public JSONObject[] GetResults() throws JSONException{
+    public JSONObject GetResults(int index) throws JSONException{
     	
-    	return rM.GetResults();
+    	return rM.GetResults(index);
     }
 }   

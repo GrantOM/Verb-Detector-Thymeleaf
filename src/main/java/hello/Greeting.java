@@ -5,6 +5,7 @@ public class Greeting {
     private String id;
     private String content;
     private String creating, evaluating, analysing, applying, understanding, remembering;
+    private int creatingVal, evaluatingVal, analysingVal, applyingVal, understandingVal, rememberingVal;
     
 
     public String getId() {
@@ -71,6 +72,53 @@ public class Greeting {
         this.remembering = remembering;
     }
     
+    public int getCreatingVal() {
+        return creatingVal;
+    }
+
+    public void setCreatingVal(int creatingVal) {
+        this.creatingVal = creatingVal;
+    }
+    
+    public int getEvaluatingVal() {
+        return evaluatingVal;
+    }
+
+    public void setEvaluatingVal(int evaluatingVal) {
+        this.evaluatingVal = evaluatingVal;
+    }
+    
+    public int getAnalysingVal() {
+        return analysingVal;
+    }
+
+    public void setAnalysingVal(int analysingVal) {
+        this.analysingVal = analysingVal;
+    }
+    
+    public int getApplyingVal() {
+        return applyingVal;
+    }
+
+    public void setApplyingVal(int applyingVal) {
+        this.applyingVal = applyingVal;
+    }
+    
+    public int getUnderstandingVal() {
+        return understandingVal;
+    }
+
+    public void setUnderstandingVal(int understandingVal) {
+        this.understandingVal = understandingVal;
+    }
+    
+    public int getRememberingVal() {
+        return rememberingVal;
+    }
+
+    public void setRememberingVal(int rememberingVal) {
+        this.rememberingVal = rememberingVal;
+    }
     
     
     

@@ -1,0 +1,1 @@
+{"applying":[{"result":1,"verb":"change"}],"analysing":[{"result":1,"verb":"identify"},{"result":2,"verb":"explain"}],"remembering":[{"result":1,"verb":"state"},{"result":1,"verb":"identify"}],"creating":[{"result":1,"verb":"design"}],"understanding":[{"result":2,"verb":"explain"}],"evaluating":[{"result":1,"verb":"recommend"}]}	

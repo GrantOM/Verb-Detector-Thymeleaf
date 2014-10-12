@@ -38,18 +38,15 @@ public class ResultModel {
 	            }
 	        }
 	        
-	        StringResultsArray = entireContents.split("\t");
+	    StringResultsArray = entireContents.split("\t");
 	
-	        buf.close();
+	    buf.close();
 	        
 	    }catch(IOException e) {
 			e.printStackTrace();
 	    }
-	}
-	
-	public JSONObject[] GetResults() throws JSONException {
-		
-		ResultsArray = new JSONObject[StringResultsArray.length];
+	    
+	    ResultsArray = new JSONObject[StringResultsArray.length];
 		
 		for (int i = 0; i < StringResultsArray.length; i++) {
 			
@@ -58,7 +55,12 @@ public class ResultModel {
 			
 		}
 		
-		return ResultsArray;
+	}
+	
+	public JSONObject GetResults(int index) throws JSONException {
+		
+		
+		return ResultsArray[index];
 		
 	}
 

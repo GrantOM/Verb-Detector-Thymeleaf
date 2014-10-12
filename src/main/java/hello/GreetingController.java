@@ -81,19 +81,22 @@ public class GreetingController {
                 
                 
                 //This will not work any more
-                /*
-                submission.setContent(ch.toString() + verbs.findVerbs(ch.toString()).toString());
+                
+                
+                verbs.findVerbs(ch.toString());
+                
+                submission.setContent(ch.toString() + verbs.GetResults(0).toString());
                 
                 greeting.setContent(ch.toString());
                 //greeting.setCreating(verbs.findVerbs(ch.toString()).getJSONArray("creating").getJSONObject(0).getString("verb"));
-                greeting.setCreating(verbs.findVerbs(ch.toString()).getJSONArray("creating").toString());
-                greeting.setEvaluating(verbs.findVerbs(ch.toString()).getJSONArray("evaluating").toString());
-                greeting.setAnalysing(verbs.findVerbs(ch.toString()).getJSONArray("analysing").toString());
-                greeting.setApplying(verbs.findVerbs(ch.toString()).getJSONArray("applying").toString());
-                greeting.setUnderstanding(verbs.findVerbs(ch.toString()).getJSONArray("understanding").toString());
-                greeting.setRemembering(verbs.findVerbs(ch.toString()).getJSONArray("remembering").toString());
+                greeting.setCreating(verbs.GetResults(0).getJSONArray("creating").toString());
+                greeting.setEvaluating(verbs.GetResults(0).getJSONArray("evaluating").toString());
+                greeting.setAnalysing(verbs.GetResults(0).getJSONArray("analysing").toString());
+                greeting.setApplying(verbs.GetResults(0).getJSONArray("applying").toString());
+                greeting.setUnderstanding(verbs.GetResults(0).getJSONArray("understanding").toString());
+                greeting.setRemembering(verbs.GetResults(0).getJSONArray("remembering").toString());
                 
-                */ 
+                
                 
                 ch.endDocument();
                 
