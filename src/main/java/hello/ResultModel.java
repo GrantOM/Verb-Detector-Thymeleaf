@@ -58,8 +58,7 @@ public class ResultModel {
 	}
 	
 	public JSONObject GetResults(int index) throws JSONException {
-		
-		
+			
 		return ResultsArray[index];
 		
 	}

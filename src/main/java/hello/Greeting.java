@@ -4,8 +4,8 @@ public class Greeting {
 
     private String id;
     private String content;
-    private String creating, evaluating, analysing, applying, understanding, remembering;
-    private int creatingVal, evaluatingVal, analysingVal, applyingVal, understandingVal, rememberingVal;
+    private String creating, evaluating, analysing, applying, understanding, remembering, total;
+    private String creatingVal, evaluatingVal, analysingVal, applyingVal, understandingVal, rememberingVal, totalVal;
     
 
     public String getId() {
@@ -72,53 +72,69 @@ public class Greeting {
         this.remembering = remembering;
     }
     
-    public int getCreatingVal() {
+    /*public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }*/
+    
+    public String getCreatingVal() {
         return creatingVal;
     }
 
-    public void setCreatingVal(int creatingVal) {
+    public void setCreatingVal(String creatingVal) {
         this.creatingVal = creatingVal;
     }
     
-    public int getEvaluatingVal() {
+    public String getEvaluatingVal() {
         return evaluatingVal;
     }
 
-    public void setEvaluatingVal(int evaluatingVal) {
+    public void setEvaluatingVal(String evaluatingVal) {
         this.evaluatingVal = evaluatingVal;
     }
     
-    public int getAnalysingVal() {
+    public String getAnalysingVal() {
         return analysingVal;
     }
 
-    public void setAnalysingVal(int analysingVal) {
+    public void setAnalysingVal(String analysingVal) {
         this.analysingVal = analysingVal;
     }
     
-    public int getApplyingVal() {
+    public String getApplyingVal() {
         return applyingVal;
     }
 
-    public void setApplyingVal(int applyingVal) {
+    public void setApplyingVal(String applyingVal) {
         this.applyingVal = applyingVal;
     }
     
-    public int getUnderstandingVal() {
+    public String getUnderstandingVal() {
         return understandingVal;
     }
 
-    public void setUnderstandingVal(int understandingVal) {
+    public void setUnderstandingVal(String understandingVal) {
         this.understandingVal = understandingVal;
     }
     
-    public int getRememberingVal() {
+    public String getRememberingVal() {
         return rememberingVal;
     }
 
-    public void setRememberingVal(int rememberingVal) {
+    public void setRememberingVal(String rememberingVal) {
         this.rememberingVal = rememberingVal;
     }
+    
+    /*public int getTotalVal() {
+        return totalVal;
+    }
+
+    public void setTotalVal(int totalVal) {
+        this.totalVal = totalVal;
+    }*/
     
     
     

@@ -43,58 +43,69 @@
                         <p th:text="'Document name: ' + ${greeting.id}" />
                         <p th:text="${greeting.content}" />
                     </div>
-                    <div id = "graphs">
-                        <div id="chart"></div>
-                        <script>
-                            var data = [
-                                {name: "A", val: 11975},
-                                {name: "B", val: 5871},
-                                {name: "C", val: 8916}
-                            ];
-
+                    <div id = "graphs" class="graphs">
+                   		<div id="chart" class="chart"></div>
+						<script th:inline="javascript">
+						/*<![CDATA[*/
+						    var creating = /*[[${greeting.creatingVal}]]*/ '0';
+							var evaluating = /*[[${greeting.evaluatingVal}]]*/ '0';
+							var analysing = /*[[${greeting.analysingVal}]]*/ '0';
+							var applying = /*[[${greeting.applyingVal}]]*/ '0';
+							var understanding = /*[[${greeting.understandingVal}]]*/ '0';
+							var remembering = /*[[${greeting.rememberingVal}]]*/ '0';
+							
+	                        var data = [
+	                                    {name: "remembering", val: remembering},
+	                                    {name: "understanding", val: understanding},
+	                                    {name: "analysing", val: analysing},
+	                                    {name: "applying", val: applying},
+	                                    {name: "evaluating", val: evaluating},
+	                                    {name: "creating", val: creating}
+	                                ];
+	
                             var w = 400,
-                                    h = 400,
-                                    r = Math.min(w, h) / 2,
-                                    labelr = r + 30, // radius for label anchor
-                                    color = d3.scale.category20(),
-                                    donut = d3.layout.pie(),
-                                    arc = d3.svg.arc().innerRadius(r * .6).outerRadius(r);
+                            h = 400,
+                            r = Math.min(w, h) / 2,
+                            labelr = r + 10, // radius for label anchor
+                            color = d3.scale.category20(),
+                            donut = d3.layout.pie(),
+                            arc = d3.svg.arc().innerRadius(r * .5).outerRadius(r);
 
-                            var vis = d3.select("#chart")
-                                    .append("svg:svg")
-                                    .data([data])
-                                    .attr("width", w + 150)
-                                    .attr("height", h);
+                    var vis = d3.select("#chart")
+                            .append("svg:svg")
+                            .data([data])
+                            .attr("width", w + 150)
+                            .attr("height", h + 300);
 
-                            var arcs = vis.selectAll("g.arc")
-                                    .data(donut.value(function(d) { return d.val }))
-                                    .enter().append("svg:g")
-                                    .attr("class", "arc")
-                                    .attr("transform", "translate(" + (r + 30) + "," + r + ")");
+                    var arcs = vis.selectAll("g.arc")
+                            .data(donut.value(function(d) { return d.val }))
+                            .enter().append("svg:g")
+                            .attr("class", "arc")
+                            .attr("transform", "translate(" + (r + 75) + "," + r + ")");
 
-                            arcs.append("svg:path")
-                                    .attr("fill", function(d, i) { return color(i); })
-                                    .attr("d", arc);
+                    arcs.append("svg:path")
+                            .attr("fill", function(d, i) { return color(i); })
+                            .attr("d", arc);
 
-                            arcs.append("svg:text")
-                                    .attr("transform", function(d) {
-                                        var c = arc.centroid(d),
-                                                x = c[0],
-                                                y = c[1],
-                                        // pythagorean theorem for hypotenuse
-                                                h = Math.sqrt(x*x + y*y);
-                                        return "translate(" + (x/h * labelr) +  ',' +
-                                                (y/h * labelr) +  ")";
-                                    })
-                                    .attr("dy", ".35em")
-                                    .attr("text-anchor", function(d) {
-                                        // are we past the center?
-                                        return (d.endAngle + d.startAngle)/2 > Math.PI ?
-                                                "end" : "start";
-                                    })
-                                    .text(function(d, i) { return d.value.toFixed(2); });
-                        </script>
-
+                    arcs.append("svg:text")
+                            .attr("transform", function(d) {
+                                var c = arc.centroid(d),
+                                        x = c[0],
+                                        y = c[1],
+                                // pythagorean theorem for hypotenuse
+                                        h = Math.sqrt(x*x + y*y);
+                                return "translate(" + (x/h * labelr) +  ',' +
+                                        (y/h * labelr) +  ")";
+                            })
+                            .attr("dy", ".35em")
+                            .attr("text-anchor", function(d) {
+                                // are we past the center?
+                                return (d.endAngle + d.startAngle)/2 > Math.PI ?
+                                        "end" : "start";
+                            })
+                            .text(function(d, i) { return d.value.toFixed(2); });
+						/*]]>*/
+						</script>
                     </div>
 					<!-- Column 1 end -->
 				</div>
@@ -118,7 +129,7 @@
 			            </div>
 			            <ul id="expList">
 			                <li>
-			                    Creating
+			                    Creating (<span th:text="${greeting.creatingVal} "></span>)
 			                    <ul>
 			                        <li>
 			                           <p th:text="${greeting.creating}" />
@@ -126,7 +137,7 @@
 			                    </ul>
 			                </li>
 			                <li>
-			                    Evaluating
+			                    Evaluating (<span th:text="${greeting.evaluatingVal} "></span>)
 			                    <ul>
 			                    	<li>
 			                    		<p th:text="${greeting.evaluating}" />
@@ -134,7 +145,7 @@
 			                    </ul>
 			                </li>
 			                <li>
-			                    Analysing
+			                    Analysing (<span th:text="${greeting.analysingVal} "></span>)
 			                    <ul>
 			                        <li>
 			                            <p th:text="${greeting.analysing}" />
@@ -142,7 +153,7 @@
 			                    </ul>
 			                </li>
 			                <li>
-			                    Applying
+			                    Applying (<span th:text="${greeting.applyingVal} "></span>)
 			                    <ul>
 			                        <li>
 			                            <p th:text="${greeting.applying}" />
@@ -150,7 +161,7 @@
 			                    </ul>
 			                </li>
 			                <li>
-			                    Understanding
+			                    Understanding (<span th:text="${greeting.understandingVal} "></span>)
 			                    <ul>
 			                        <li>
 			                            <p th:text="${greeting.understanding}" />
@@ -158,7 +169,7 @@
 			                    </ul>
 			                </li>
 			                <li>
-			                    Remembering
+			                    Remembering (<span th:text="${greeting.rememberingVal} "></span>)
 			                    <ul>
 			                        <li>
 			                            <p th:text="${greeting.remembering}" />

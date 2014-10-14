@@ -23,10 +23,13 @@ public class VerbFinder {
 	private String lineJustFetched;
 	private String[] verbArray;
 	
+	private JSONObject totalVerbs;
+	
     //Constructor
 	public VerbFinder() throws FileNotFoundException{
 		
 		rM = new ResultModel();
+		totalVerbs = new JSONObject();
 		
 		buf = new BufferedReader(new FileReader("Verbs.txt"));
         taxonomy = new ArrayList<>();
@@ -60,9 +63,11 @@ public class VerbFinder {
 	//Takes the text file string as a parameter
     public void findVerbs(String fileText ) throws JSONException, IOException {
     	
+    	int totalVerbCount = 0;
     	JSONObject results = new JSONObject();
     	JSONArray resultY = new JSONArray();
     	JSONObject resultX = new JSONObject();
+    	JSONObject countResults = new JSONObject();
     	int count = 0;
     	
     	File file = new File("Results.txt");
@@ -79,20 +84,29 @@ public class VerbFinder {
     				
     				if (count > 0){	
     					
+    					totalVerbCount += count;
     					resultX.put("result", count);
     					resultX.put("verb", taxonomy.get(j)[i]);
+    					
     				}
+    				
     			}	
     			
     			if (count > 0){
     				
     				resultY.put(resultX);
     				resultX = new JSONObject();
+    				
     			}
     		}
     		
-    		results.put(taxonomy.get(0)[i] , resultY);
+        	countResults.accumulate("total", totalVerbCount);
+    		//countResults.put("total", countVerbs);
+        	//totalVerbs.put("total", countResults);
+        	//resultY.put(countVerbs);
+        	results.put(taxonomy.get(0)[i] , resultY);
     		resultY = new JSONArray();
+    		totalVerbCount = 0;
     	}
     	
     	if (!file.exists()) {
@@ -102,6 +116,7 @@ public class VerbFinder {
     	FileWriter fw = new FileWriter(file.getAbsoluteFile());
     	BufferedWriter bw = new BufferedWriter(fw);
     	bw.write(results.toString() + "\t");
+    	bw.write(countResults.toString());
     	bw.close();
     		
     	rM.Refresh();
@@ -112,4 +127,5 @@ public class VerbFinder {
     	
     	return rM.GetResults(index);
     }
+    
 }   

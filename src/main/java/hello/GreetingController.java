@@ -96,7 +96,12 @@ public class GreetingController {
                 greeting.setUnderstanding(verbs.GetResults(0).getJSONArray("understanding").toString());
                 greeting.setRemembering(verbs.GetResults(0).getJSONArray("remembering").toString());
                 
-                
+                greeting.setCreatingVal(verbs.GetResults(1).getJSONArray("total").get(0).toString());
+                greeting.setEvaluatingVal(verbs.GetResults(1).getJSONArray("total").get(1).toString());
+                greeting.setAnalysingVal(verbs.GetResults(1).getJSONArray("total").get(2).toString());
+                greeting.setApplyingVal(verbs.GetResults(1).getJSONArray("total").get(3).toString());
+                greeting.setUnderstandingVal(verbs.GetResults(1).getJSONArray("total").get(4).toString());
+                greeting.setRememberingVal(verbs.GetResults(1).getJSONArray("total").get(5).toString());
                 
                 ch.endDocument();
                 

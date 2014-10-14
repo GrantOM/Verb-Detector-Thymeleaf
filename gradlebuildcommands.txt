@@ -1,2 +1,3 @@
-./gradlew clean cleanEclipseClasspath eclipseClasspath build && java -jar build/libs/gs-handling-form-submission-0.1.0.jar 
+First run: ./gradlew clean cleanEclipseClasspath eclipseClasspath build && java -jar build/libs/gs-handling-form-submission-0.1.0.jar 
+Subsequent runs: ./gradlew clean build && java -jar build/libs/gs-handling-form-submission-0.1.0.jar 
 University\Capstone\Verb-Detector-Thymeleaf
