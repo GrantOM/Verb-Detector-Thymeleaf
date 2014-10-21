@@ -195,6 +195,10 @@ img {
     background-image: url(../img/expanded.png);
 }
 
+#explist .total {
+	display:inline;
+}
+
 .listControl{
      margin-bottom: 15px;
    }
@@ -212,4 +216,23 @@ img {
       color:#222222; 
       font-weight:normal;
   }
- }
+  
+  .listControl span {
+  	display:block;
+  }
+  
+  /* chart stuff */
+  
+  #d3portfolio {
+  width: 320px;
+  height: 320px;
+}
+.chartLabel {
+  font: 16px sans-serif;
+  fill: #666;
+}
+.arcLabel {
+  font: 10px sans-serif;
+  fill: #fff;
+}
+ 

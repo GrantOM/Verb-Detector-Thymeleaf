@@ -44,8 +44,8 @@
                         <p th:text="${greeting.content}" />
                     </div>
                     <div id = "graphs" class="graphs">
-                   		<div id="chart" class="chart"></div>
-						<script th:inline="javascript">
+                   		<!--<div id="chart" class="chart"></div>
+					 	<script th:inline="javascript">
 						/*<![CDATA[*/
 						    var creating = /*[[${greeting.creatingVal}]]*/ '0';
 							var evaluating = /*[[${greeting.evaluatingVal}]]*/ '0';
@@ -63,7 +63,7 @@
 	                                    {name: "creating", val: creating}
 	                                ];
 	                        
-	                        var labels = ['LCAP', 'MCAP', 'SCAP', 'Intl', 'Alt', 'Fixed'];
+	                        //var labels = ['LCAP', 'MCAP', 'SCAP', 'Intl', 'Alt', 'Fixed'];
 	
                             var w = 460,
                             h = 300,
@@ -107,20 +107,31 @@
                             })
                             .text(function(d, i) { return d.value; });
 						/*]]>*/
-						</script>
+						</script>-->
 						
-						<div id="objectives">
+						<!-- <div id="objectives">
 						    <a href="#agg">Agg</a> 
 						    <a href="#bal">Bal</a> 
 						    <a href="#mod">Mod</a> 
 						    <a href="#inc">Inc</a> 
-						</div>
+						</div> -->
+						
 						<div id="d3portfolio"></div>
 						<script th:inline="javascript">
-						var agg = { label: 'Aggressive', pct: [30, 10, 6, 30, 14, 10] },
-						    bal = { label: 'Balanced',   pct: [24,  7, 2, 18, 13, 36] },
-						    mod = { label: 'Moderate',   pct: [12,  4, 2, 10, 11, 61] },
-						    inc = { label: 'Income',     pct: [ 0,  0, 0,  0,  0,100] },
+						/*<![CDATA[*/
+						           
+					  	var total = /*[[${greeting.totalVal}]]*/ '0';
+						var creating = /*[[${greeting.creatingVal}]]*/ '0';
+						var evaluating = /*[[${greeting.evaluatingVal}]]*/ '0';
+						var analysing = /*[[${greeting.analysingVal}]]*/ '0';
+						var applying = /*[[${greeting.applyingVal}]]*/ '0';
+						var understanding = /*[[${greeting.understandingVal}]]*/ '0';
+						var remembering = /*[[${greeting.rememberingVal}]]*/ '0';        
+						           
+						var agg = { label: 'Bloom\'s Taxonomy', pct: [remembering,understanding,analysing,applying,evaluating,creating] },
+						    //bal = { label: 'Balanced',   pct: [24,  7, 2, 18, 13, 36] },
+						    //mod = { label: 'Moderate',   pct: [12,  4, 2, 10, 11, 61] },
+						    //inc = { label: 'Income',     pct: [ 0,  0, 0,  0,  0,100] },
 						
 						    data = agg;
 						
@@ -132,7 +143,7 @@
 						    dur = 750,                     // duration, in milliseconds
 						    color = d3.scale.category10(),
 						    donut = d3.layout.pie().sort(null),
-						    arc = d3.svg.arc().innerRadius(r - 70).outerRadius(r - 20);
+						    arc = d3.svg.arc().innerRadius(r - 80).outerRadius(r - 20);
 						
 						// ---------------------------------------------------------------------
 						var svg = d3.select("#d3portfolio").append("svg:svg")
@@ -207,6 +218,7 @@
 						$("#objectives a").click(function() {
 						    updateChart(this.href.slice(this.href.indexOf('#') + 1));
 						});
+						/*]]>*/
 						</script>
                     </div>
 					<!-- Column 1 end -->

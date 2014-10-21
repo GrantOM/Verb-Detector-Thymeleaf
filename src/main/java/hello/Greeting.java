@@ -1,11 +1,14 @@
 package hello;
 
+import org.json.JSONArray;
+
 public class Greeting {
 
     private String id;
     private String content;
     private String creating, evaluating, analysing, applying, understanding, remembering, total;
-    private String creatingVal, evaluatingVal, analysingVal, applyingVal, understandingVal, rememberingVal, totalVal;
+    private String creatingVal, evaluatingVal, analysingVal, applyingVal, understandingVal, rememberingVal;
+	private JSONArray totalVal;
     
 
     public String getId() {
@@ -72,13 +75,13 @@ public class Greeting {
         this.remembering = remembering;
     }
     
-    /*public String getTotal() {
+    public String getTotal() {
         return total;
     }
 
     public void setTotal(String total) {
         this.total = total;
-    }*/
+    }
     
     public String getCreatingVal() {
         return creatingVal;
@@ -128,14 +131,12 @@ public class Greeting {
         this.rememberingVal = rememberingVal;
     }
     
-    /*public int getTotalVal() {
+    public JSONArray getTotalVal() {
         return totalVal;
     }
 
-    public void setTotalVal(int totalVal) {
+    public void setTotalVal(JSONArray totalVal) {
         this.totalVal = totalVal;
-    }*/
-    
-    
+    }  
     
 }

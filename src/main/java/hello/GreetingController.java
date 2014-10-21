@@ -89,6 +89,10 @@ public class GreetingController {
                 
                 greeting.setContent(ch.toString());
                 //greeting.setCreating(verbs.findVerbs(ch.toString()).getJSONArray("creating").getJSONObject(0).getString("verb"));
+                //for (int i = 0; i < verbs.GetResults(0).getJSONArray("creating").length(); i++) {
+                //greeting.setTotal(verbs.GetResults(0).getJSONArray("creating").getJSONObject(0).getString("verb").toString());
+                //}
+                	
                 greeting.setCreating(verbs.GetResults(0).getJSONArray("creating").toString());
                 greeting.setEvaluating(verbs.GetResults(0).getJSONArray("evaluating").toString());
                 greeting.setAnalysing(verbs.GetResults(0).getJSONArray("analysing").toString());
@@ -96,6 +100,7 @@ public class GreetingController {
                 greeting.setUnderstanding(verbs.GetResults(0).getJSONArray("understanding").toString());
                 greeting.setRemembering(verbs.GetResults(0).getJSONArray("remembering").toString());
                 
+                greeting.setTotalVal(verbs.GetResults(1).getJSONArray("total"));
                 greeting.setCreatingVal(verbs.GetResults(1).getJSONArray("total").get(0).toString());
                 greeting.setEvaluatingVal(verbs.GetResults(1).getJSONArray("total").get(1).toString());
                 greeting.setAnalysingVal(verbs.GetResults(1).getJSONArray("total").get(2).toString());
