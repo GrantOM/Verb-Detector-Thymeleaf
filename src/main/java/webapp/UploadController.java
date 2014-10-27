@@ -30,31 +30,41 @@ public class UploadController {
     }
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public String greetingSubmit(@RequestParam("file") MultipartFile file, @ModelAttribute Upload upload, Model model) {//, @RequestParam("name") String name,
-            //@RequestParam("file") MultipartFile file) {
-        SubmissionModel submission = new SubmissionModel();
+    public String greetingSubmit(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2, 
+    		@ModelAttribute Upload upload, Model model) {
         model.addAttribute("upload", upload);
         if (!file.isEmpty()) {
             try {
-                //byte[] bytes = file.getBytes();
-                //int read = 0; 
-                //String line = null;
                 
                 List<String> fileText = new ArrayList<String>();
+               // List<String> fileText2 = new ArrayList<String>();
                 String fileName = file.getOriginalFilename();
-                BufferedInputStream inputStream = new BufferedInputStream(file.getInputStream()); 
-                //BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(new File(fileName)));
+               // String fileName2 = file2.getOriginalFilename();
+                if (fileName == null) {
+                	fileName = "";
+                }
+                
+                BufferedInputStream inputStream = new BufferedInputStream(file.getInputStream());
+                //BufferedInputStream inputStream2 = new BufferedInputStream(file2.getInputStream()); 
  
             	Metadata metadata = new Metadata();
+            	//Metadata metadata2 = new Metadata();
                 BodyContentHandler ch = new BodyContentHandler(10*1024*1024);
+               // BodyContentHandler ch2 = new BodyContentHandler(10*1024*1024);
                 ch.startDocument();
+               // ch2.startDocument();
             	AutoDetectParser parser = new AutoDetectParser();
+            	//AutoDetectParser parser2 = new AutoDetectParser();
             	
             	String mimeType = new Tika().detect(fileName);
+            	//String mimeType2 = new Tika().detect(fileName2);
                 metadata.set(Metadata.CONTENT_TYPE, mimeType);
+                //metadata2.set(Metadata.CONTENT_TYPE, mimeType2);
                 
                 parser.parse(inputStream, ch, metadata, new ParseContext());
+                //parser2.parse(inputStream2, ch2, metadata2, new ParseContext());
                 inputStream.close();
+                //inputStream2.close();
                 
                 for (int i = 0; i < metadata.names().length; i++) {
                     String item = metadata.names()[i];
@@ -62,36 +72,12 @@ public class UploadController {
                 }
                 
                 VerbFinder verbs = new VerbFinder();
-    
-                /*BufferedOutputStream stream = 
-                		new BufferedOutputStream(new FileOutputStream(new File("uploadedfiles/" + fileName)));
-                while ((read = inputStream.read(bytes)) != -1) { 
-                	stream.write(bytes, 0, read);               	
-                }
-                stream.close();
-                inputStream.close();*/
-
-                /*BufferedReader br = new BufferedReader(new FileReader("uploadedfiles/" + fileName));
-                while ((line = br.readLine()) != null) {
-                	fileText.add(line);
-                }
-                br.close();
-                return "You successfully uploaded " + name + " into " + name + "-uploaded !" + fileName +
-                		fileText + "\n" + ch.toString();*/
-                
-                
-                //This will not work any more
-                
-                
+                //VerbFinder verbs2 = new VerbFinder();
                 verbs.findVerbs(ch.toString());
-                
-                submission.setContent(ch.toString() + verbs.GetResults(0).toString());
+                //verbs.findVerbs(ch2.toString());
                 
                 upload.setContent(ch.toString());
-                //greeting.setCreating(verbs.findVerbs(ch.toString()).getJSONArray("creating").getJSONObject(0).getString("verb"));
-                //for (int i = 0; i < verbs.GetResults(0).getJSONArray("creating").length(); i++) {
-                //greeting.setTotal(verbs.GetResults(0).getJSONArray("creating").getJSONObject(0).getString("verb").toString());
-                //}
+                //upload.setContent(ch.toString() + ch2.toString());
                 	
                 upload.setCreating(verbs.GetResults(0).getJSONArray("creating").toString());
                 upload.setEvaluating(verbs.GetResults(0).getJSONArray("evaluating").toString());
@@ -118,7 +104,7 @@ public class UploadController {
             }
         }
 		//return "You failed to upload";
-        upload.setContent("empty");
+        upload.setContent("Error: File is empty.");
         return "upload";
         
     }

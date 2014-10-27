@@ -40,10 +40,10 @@
                     <button id="content-view" onclick="content_view_click('content', 'graphs')">Content</button>
                     <button id="graph-view" onclick="graph_view_click('content', 'graphs')">Graphs</button>
                     <div id = "content">
-                        <p th:text="'Document name: ' + ${upload.id}" />
+                        <!-- <p th:text="'Document name: ' + ${upload.id}" /> -->
                         <p th:text="${upload.content}" />
                     </div>
-                    <div id = "graphs" class="graphs">
+                    <div style="display:none"  id = "graphs" class="graphs">
                    		<!--<div id="chart" class="chart"></div>
 					 	<script th:inline="javascript">
 						/*<![CDATA[*/
@@ -227,7 +227,8 @@
 					<!-- Column 2 start -->
                     <form action="#" th:action="@{/upload}" th:object="${upload}" method="post" enctype="multipart/form-data">
                         <p>Name: <input type="text" th:field="*{id}" /></p>
-                        File to upload: <input type="file" name="file"/><br />
+                        File 1: <input type="file" name="file"/><br />
+                        File 2: <input type="file" name="file2"/><br />
                         <!--<p>Message: <input type="text" th:field="*{content}" /></p>-->
                         <p><input type="submit" value="Submit" /></p>
                         <a href="/upload">Upload another file</a>
