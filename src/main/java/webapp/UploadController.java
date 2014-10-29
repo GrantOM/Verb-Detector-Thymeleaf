@@ -30,16 +30,16 @@ public class UploadController {
     }
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public String greetingSubmit(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2, 
+    public String greetingSubmit(@RequestParam("file") MultipartFile file, /*@RequestParam("file2") MultipartFile file2,*/ 
     		@ModelAttribute Upload upload, Model model) {
         model.addAttribute("upload", upload);
         if (!file.isEmpty()) {
             try {
                 
                 List<String> fileText = new ArrayList<String>();
-               // List<String> fileText2 = new ArrayList<String>();
+                //List<String> fileText2 = new ArrayList<String>();
                 String fileName = file.getOriginalFilename();
-               // String fileName2 = file2.getOriginalFilename();
+                //String fileName2 = file2.getOriginalFilename();
                 if (fileName == null) {
                 	fileName = "";
                 }
@@ -50,9 +50,9 @@ public class UploadController {
             	Metadata metadata = new Metadata();
             	//Metadata metadata2 = new Metadata();
                 BodyContentHandler ch = new BodyContentHandler(10*1024*1024);
-               // BodyContentHandler ch2 = new BodyContentHandler(10*1024*1024);
+                //BodyContentHandler ch2 = new BodyContentHandler(10*1024*1024);
                 ch.startDocument();
-               // ch2.startDocument();
+                //ch2.startDocument();
             	AutoDetectParser parser = new AutoDetectParser();
             	//AutoDetectParser parser2 = new AutoDetectParser();
             	
