@@ -1,6 +1,10 @@
-package webapp;
+/**
+ * Getters and setters for the upload model.
+ * 
+ * Author: Grant O'Meara
+ */
 
-import org.json.JSONArray;
+package webapp;
 
 public class Upload {
 
@@ -8,8 +12,6 @@ public class Upload {
     private String content;
     private String creating, evaluating, analysing, applying, understanding, remembering, total;
     private String creatingVal, evaluatingVal, analysingVal, applyingVal, understandingVal, rememberingVal;
-	private JSONArray totalVal;
-    
 
     public String getId() {
         return id;
@@ -129,14 +131,5 @@ public class Upload {
 
     public void setRememberingVal(String rememberingVal) {
         this.rememberingVal = rememberingVal;
-    }
-    
-    public JSONArray getTotalVal() {
-        return totalVal;
-    }
-
-    public void setTotalVal(JSONArray totalVal) {
-        this.totalVal = totalVal;
-    }  
-    
+    }   
 }

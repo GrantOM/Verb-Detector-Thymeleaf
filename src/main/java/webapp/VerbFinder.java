@@ -23,13 +23,10 @@ public class VerbFinder {
 	private String lineJustFetched;
 	private String[] verbArray;
 	
-	private JSONObject totalVerbs;
-	
     //Constructor
 	public VerbFinder() throws FileNotFoundException{
 		
 		rM = new ResultModel();
-		totalVerbs = new JSONObject();
 		
 		buf = new BufferedReader(new FileReader("Verbs.txt"));
         taxonomy = new ArrayList<>();
@@ -101,9 +98,6 @@ public class VerbFinder {
     		}
     		
         	countResults.accumulate("total", totalVerbCount);
-    		//countResults.put("total", countVerbs);
-        	//totalVerbs.put("total", countResults);
-        	//resultY.put(countVerbs);
         	results.put(taxonomy.get(0)[i] , resultY);
     		resultY = new JSONArray();
     		totalVerbCount = 0;

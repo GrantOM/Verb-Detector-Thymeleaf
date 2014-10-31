@@ -1,3 +1,8 @@
+/**
+ * Creates the REST web application. Nothing interesting here aside from setting the max file size (currently 10MB)
+ * 
+ * Author: Grant O'Meara
+ */
 package webapp;
 
 import javax.servlet.MultipartConfigElement;
