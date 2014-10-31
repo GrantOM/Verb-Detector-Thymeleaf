@@ -7,15 +7,21 @@ import java.io.IOException;
 
 import org.json.*;
 
+/* This class handles reading from the Results.txt file and converting the contents
+ * back to a JSON object for use within the web app.
+ */
 public class ResultModel {
 	
 	private JSONObject[] ResultsArray;
-	
 	private BufferedReader buf;
 	private String lineJustFetched;
 	private String entireContents = "";
 	private String[] StringResultsArray;
 	
+	
+	//Function - Refresh() - This function repopulates ResultsArray with whatever is
+	// is currently in Results.txt. It is called within the definition of
+	// VerbFinder.findVerbs() 
 	public void Refresh() throws FileNotFoundException{
 		
 		buf = new BufferedReader(new FileReader("Results.txt"));
@@ -57,6 +63,7 @@ public class ResultModel {
 		
 	}
 	
+	//Function - GetResults(int index) - Returns the JSON object located at the index
 	public JSONObject GetResults(int index) throws JSONException {
 			
 		return ResultsArray[index];

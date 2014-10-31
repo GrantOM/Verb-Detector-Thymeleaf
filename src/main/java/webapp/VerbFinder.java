@@ -12,8 +12,19 @@ import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 import org.json.*;
 
-//This will get our verbs from a text file in root until I figure out
-// how to use h2 for an embedded database
+/* This class facilitates the verb finding functionality of the application.
+ * Upon construction, it pulls Bloom's Taxonomy verbs from a text file located
+ * in the project directory upon construction. The text file holds the format as follows:
+ * 
+ * 	The first line contains the 6 titles of Bloom's Taxonomy's tiers delimited by
+ * 			the tab key.
+ * 	Each subsequent line contains verbs corresponding to the taxonomy in the
+ * 			categorical order of the first line, delimited by the tab key.
+ * 
+ * 	It is possible to change this text of this file, provided it still has 6 categories.
+ *
+ */
+
 public class VerbFinder {
 	
 	private ResultModel rM;
@@ -57,7 +68,11 @@ public class VerbFinder {
 	}
 	
 	
-	//Takes the text file string as a parameter
+	//Function - findVerbs(String fileText) - This function accepts a string containing
+	// the text of any uploaded files and finds matches according to the verbs supplied in
+	// verbs.txt. It stores the results in Results.txt and as such, may be called as many
+	// times as needed with as many texts as needed. These results can be accessed using
+	// the GetResults(int index) function
     public void findVerbs(String fileText ) throws JSONException, IOException {
     	
     	int totalVerbCount = 0;
@@ -117,6 +132,9 @@ public class VerbFinder {
     
     } 
     
+    //Function - GetResults(int index) - The function will retrieve the results of any search
+    // given its chronological index i.e. the results of the first call to
+    // findVerbs(String filetext) will be given by VerbFinder.GetResults(0)
     public JSONObject GetResults(int index) throws JSONException{
     	
     	return rM.GetResults(index);
